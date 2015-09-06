@@ -44,3 +44,18 @@ make8 xs = take 8 (xs ++ repeat 0)
 
 encode :: String -> [Bit]
 encode = concat . map (make8 . int2b . ord)
+
+chop8 :: [Bit] -> [[Bit]]
+chop8 [] = []
+chop8 bits = take 8 bits : chop8 (drop 8 bits) 
+
+
+myall :: (a -> Bool) -> [a] ->  Bool
+myall f [] = True
+myall f (x:xs) | f x = myall f xs
+           | otherwise = False 
+
+myany :: (a -> Bool) -> [a] -> Bool
+myany f [] = False
+myany f (x:xs) | f x = True           
+           | otherwise = myany f xs
