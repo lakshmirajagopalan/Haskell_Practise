@@ -1,2 +1,2 @@
 # Haskell_Practise
-Graham Hutton 
+Graham Hutton Excercises
