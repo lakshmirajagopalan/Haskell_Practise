@@ -1,5 +1,4 @@
 import Data.Char
-
 newtype Parser a =  P (String -> [(a,String)])
 
 failure :: Parser a
@@ -21,19 +20,10 @@ instance Monad Parser where
 						[(v, out)] -> parse (f v) out)
 
 
-myparser :: Parser (Char, Char)
-myparser = do 
-			x <- item
-			item
-			z <- item
-			return (x, z)
-
-P(parser) = myparser 
-
-
 p +++ q = P(\inp -> case parse p inp of
 					[] -> parse q inp
 					[(v,out)] -> [(v, out)])
+
 
 sat :: (Char -> Bool) -> Parser Char
 sat p = do 
@@ -54,7 +44,6 @@ space = sat (isSpace)
 
 alphanum :: Parser Char
 alphanum = sat (isAlphaNum)
-
 
 string :: String -> Parser String
 string [] = return []
@@ -173,8 +162,3 @@ eval xs = case parse expr xs of
 		[(_, out)] -> error("unsedinpput " ++ out)
 		[] -> error "invalid input"
 			
-
-
-
-
-
